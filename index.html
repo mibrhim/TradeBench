@@ -1,0 +1,72 @@
+
+    <html>
+    <head>
+        <title>Backtest Summary Report</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 20px;
+                background-color: #f4f4f9;
+            }
+            h1 {
+                color: #333;
+                text-align: center;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin: 20px 0;
+            }
+            th, td {
+                padding: 12px;
+                border: 1px solid #ddd;
+                text-align: center;
+            }
+            th {
+                background-color: #4CAF50;
+                color: white;
+            }
+            tr:nth-child(even) {
+                background-color: #f9f9f9;
+            }
+            tr:hover {
+                background-color: #f1f1f1;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Backtest Summary Report</h1>
+        <table>
+            <tr>
+                <th>System</th>
+                <th>CAGR</th>
+                <th>Max Drawdown</th>
+                <th>Longest Drawdown</th>
+                <th>Annual Volatility</th>
+                <th>Sharpe Ratio</th>
+                <th>MAR</th>
+                <th>Win(%)</th>
+                <th>Win/Loss</th>
+                <th>Trades Count</th>
+                <th>Average Days in Trade</th>
+                <th>Total Return</th>
+                <th>Detailed Report</th>
+            </tr>
+            <tr>
+                <td><b>Slow Turtle</b></br>entry(100), exit(50), min_volume(50000000), pyramidN(1), roc_period(50), stop_loss_atr_multiple(4)</td>
+                <td>19.84%</td>
+                <td>23.83%</td>
+                <td>17.67</td>
+                <td>19.45%</td>
+                <td>0.99</td>
+                <td>0.83</td>
+                <td>43.96</td>
+                <td>7.44</td>
+                <td>91.00</td>
+                <td>62.08</td>
+                <td>520.08%</td>
+                <td><a target="_blank" href="html/slow_turtle_report.html">View</a></td>
+            </tr>
+        </table>
+    </body>
+    </html>
