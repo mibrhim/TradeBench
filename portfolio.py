@@ -109,7 +109,7 @@ class PortfolioFactory:
             case PortfolioFactory.COMMUNICATION_SERVICES:
                 stock_symbols = ['GOOGL', 'NFLX', 'DIS', 'T']
             case PortfolioFactory.SINGLE_STOCK:
-                stock_symbols = ['AMD']
+                stock_symbols = ['AAPL']
             case PortfolioFactory.TOP_US_STOCKS:
                 stock_symbols = PortfolioFactory.get_top_us_stocks()
                 print(f"Top US Stocks Portfolio Length: {len(stock_symbols)}")

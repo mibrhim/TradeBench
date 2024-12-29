@@ -3,7 +3,7 @@ class RiskManager:
     _instance = None
     RISK_PER_UNIT = 1
     _max_total_active_units = 14
-    _max_active_units_per_strategy = {"MomentumStrategy": 6, "SlowTurtleStrategy": 9}
+    _max_active_units_per_strategy = {"MomentumStrategy": 6, "SlowTurtleStrategy": 9, "TurtleCTStrategy":20, "MeanReversionRSIWithRanking": 10}
     _max_active_units_per_stock = 3
 
 

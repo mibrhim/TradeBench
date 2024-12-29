@@ -40,7 +40,7 @@ class SlowTurtleStrategyModified(Strategy):
     def _filter(self, data):
         return all([
                     self.volume_sma[data][0] > self.p.min_volume,             
-                    self.market.close[0] > self.sma_market[0],         
+                    # self.market.close[0] > self.sma_market[0],         
                 ])
 
 

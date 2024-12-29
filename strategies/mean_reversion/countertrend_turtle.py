@@ -8,8 +8,8 @@ from strategies.strategy import Strategy
 
 class TurtleCTStrategy(Strategy):
     params = (
-        ('up_level', 10),  #100
-        ('down_level', 10),  #55
+        ('up_level', 2),  #100
+        ('down_level', 5),  #55
         ('sma_trend', 200),
         ('atrPeriod', 14),
         ('adx_period', 21),
@@ -25,8 +25,8 @@ class TurtleCTStrategy(Strategy):
         self.long_top_level = {d: Highest(d.high, period=self.p.up_level) for d in self.datas}
         self.long_bottom_level = {d: Lowest(d.low, period=self.p.down_level) for d in self.datas}
 
-        self.rsi = {d: bt.indicators.RSI(d, period=self.p.rsi_period) for d in self.datas}
-        self.adx = {d: bt.indicators.AverageDirectionalMovementIndex(self.data, period=21) for d in self.datas}
+        self.sma_fast = {d: bt.indicators.SimpleMovingAverage(d, period=50) for d in self.datas}
+        self.sma_slow = {d: bt.indicators.SimpleMovingAverage(d, period=200) for d in self.datas}
 
         self.sma_market = bt.indicators.SimpleMovingAverage(self.market.close, period=self.p.sma_trend)
         self.average_volume = {d: bt.indicators.SimpleMovingAverage(d.volume, period=self.p.sma_trend) for d in self.datas}
@@ -35,24 +35,19 @@ class TurtleCTStrategy(Strategy):
 
     def _filter(self, data):
         return all([     
-                    # self.market.close[0] > self.sma_market[0] or not self.p.filter,          # we aren't going to buy anything if the market is down
-                    # 0.01 > self.roc[data][0] > 0,
-                    # self.atr[data][0] / data.close[0] > 0.02
-                    self.sma[data][0] - self.sma[data][-self.p.rsi_period] > 0,
-                    # self.adx[data] < 20,
-                    # self.rsi[data] < 30,
+                    self.sma_fast[data][0] > self.sma_slow[data][0]
                 ])
     
 
     def _rank(self, datas):
-        return sorted(datas, key=lambda data: (self.atr[data][0], -self.rsi[data]), reverse=True)
+        return sorted(datas, key=lambda data: (self.atr[data][0]), reverse=True)
 
     # ---------------
     # set up condition
     def _setup(self, stock) -> bool:
         return all({
                     stock.low[0] < self.long_bottom_level[stock][-1],
-                    stock.volume[0] < self.average_volume[stock][0]
+                    # stock.volume[0] < self.average_volume[stock][0]
                 })
 
 

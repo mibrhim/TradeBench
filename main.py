@@ -21,7 +21,7 @@ from system.system_builder import SystemBuilder
 
 # test run dates
 def main():
-    start_date = '2014-10-01'
+    start_date = '2023-01-03'
     # end_date = '1900-01-01'
 
     sp_portfolio = PortfolioFactory.make(PortfolioFactory.SPY_STOCK, _start_date=start_date)
@@ -32,11 +32,11 @@ def main():
     trader = Trader(portfolio, 100000)
     trader.show_charts()
 
-    # adding_benchmarks(trader, sp_portfolio)
+    adding_benchmarks(trader, sp_portfolio)
 
     # add_fast_turtle(trader)
     add_slow_turtle(trader)
-    # add_long_momentum(trader)
+    add_long_momentum(trader)
 
     # add_rotation_strategy(trader)
 
@@ -93,7 +93,6 @@ def add_fast_turtle(trader):
     # 100,55 -
     fast_turtle = SystemBuilder("Fast Turtle") \
         .strategy(SlowTurtleStrategy) \
-        .params({"entry": 20, "exit": 10}) \
         .optimize({"entry": [20]}) \
         .optimize({"exit": [10]}) \
         .optimize({"min_volume": [50000000]}) \
@@ -103,6 +102,8 @@ def add_fast_turtle(trader):
         .sizer(TurtleSizer) \
         .combine() \
         .build()
+    
+    # .params({"entry": 20, "exit": 10}) \
     # .optimize({"sma_trend": [100, 200]}) \
 
     trader.add_system(fast_turtle)
@@ -163,7 +164,7 @@ def add_rsi_mr(trader):
         .optimize({"rsi_period": [8, 12.5],
                    "rsi_entry": [30, 50],
                    "rsi_exit": [40, 50, 60]}) \
-        .sizer(AllPositionSizer) \
+        .sizer(AllInSizerInt) \
         .combine() \
         .build()
 
@@ -191,10 +192,10 @@ def add_macd_divergence(trader):
 
 def add_turtle_ct(trader):
     test = SystemBuilder("Turtle CT").strategy(TurtleCTStrategy) \
-        .params({"up_level": 50, "down_level": 100}) \
+        .params({"up_level": 10, "down_level": 20}) \
         .optimize({"up_level": [50, 25],
                    "down_level": [50, 100]}) \
-        .sizer(AllPositionSizer) \
+        .sizer(TurtleSizer) \
         .combine() \
         .build()
 
